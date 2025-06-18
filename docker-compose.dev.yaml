@@ -29,8 +29,6 @@ services:
       DB_NAME: ${DB_NAME}
       DATABASE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
-      FRONTEND_URL: ${FRONTEND_URL}
-      BACKEND_URL: ${BACKEND_URL}
       NODE_ENV: development
     depends_on:
       - postgres
@@ -55,7 +53,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      VITE_API_URL: ${BACKEND_URL}
+      VITE_API_URL: ${API_URL}
       NODE_ENV: development
     depends_on:
       - backend

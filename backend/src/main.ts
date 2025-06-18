@@ -18,12 +18,6 @@ async function bootstrap() {
     transform: true,           // Transform payloads to DTO instances
   }));
 
-  // Enable CORS
-  app.enableCors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  });
-
   await app.listen(process.env.PORT ?? 3000);
   console.log('Backend is running on ' + process.env.BACKEND_URL);
 }
