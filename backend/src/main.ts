@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
@@ -18,11 +20,11 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({
-    origin: 'http://localhost:3001',
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   });
 
   await app.listen(process.env.PORT ?? 3000);
-  console.log('Backend is running on http://localhost:3000');
+  console.log('Backend is running on ' + process.env.BACKEND_URL);
 }
 bootstrap();
