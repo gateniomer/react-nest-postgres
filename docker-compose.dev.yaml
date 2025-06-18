@@ -29,6 +29,7 @@ services:
       DB_NAME: ${DB_NAME}
       DATABASE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL}
       NODE_ENV: development
     depends_on:
       - postgres
