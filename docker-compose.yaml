@@ -24,7 +24,7 @@ services:
       - "3000:3000"
       - "5555:5555"
     environment:
-      DB_HOST: postgres
+      DB_HOST: ${DB_HOST}
       DB_PORT: 5432
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
