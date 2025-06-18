@@ -1,0 +1,15 @@
+FROM node:24-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy source code
+COPY . .
+
+EXPOSE 3001
+
+# Development server with hot reload
+CMD ["npm", "run", "dev"]
