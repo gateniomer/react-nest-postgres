@@ -19,6 +19,6 @@ npm-install-frontend-host:
 	cd frontend; npm i;
 
 db-seed:
-	docker exec backend sh -c "npx ts-node -r tsconfig-paths/register scripts/seed.ts"
-db-clear:
-	docker exec backend sh -c "npx ts-node -r tsconfig-paths/register scripts/reset.ts"
+	docker exec backend sh -c "npm run db-seed"
+db-reset:
+	docker exec backend sh -c "npm run db-reset"
