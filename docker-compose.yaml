@@ -7,8 +7,8 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -19,8 +19,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     environment:
       DB_HOST: postgres
       DB_PORT: ${DB_PORT}
@@ -29,8 +29,6 @@ services:
       DB_NAME: ${DB_NAME}
       DATABASE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
-      FRONTEND_URL: ${FRONTEND_URL}
-      BACKEND_URL: ${BACKEND_URL}
       NODE_ENV: production
     depends_on:
       - postgres
@@ -49,10 +47,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-          VITE_API_URL: ${BACKEND_URL}
+        VITE_API_URL: ${API_URL}
     container_name: frontend
-    ports:
-      - "3001:3001"
+    expose:
+      - "3001"
     environment:
       NODE_ENV: production
     depends_on:
@@ -66,6 +64,22 @@ services:
           memory: 100M
         reservations:
           memory: 50M
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certbot:/etc/letsencrypt:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - app-network
+    restart: unless-stopped
 
 networks:
   app-network:
